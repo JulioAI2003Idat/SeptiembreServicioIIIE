@@ -20,6 +20,7 @@ public class Producto {
 	public Producto() {
 		super();
 	}
+	
 
 
 	public Integer getId_producto() {
