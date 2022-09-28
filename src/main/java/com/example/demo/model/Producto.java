@@ -1,11 +1,27 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name ="productos")
 public class Producto {
@@ -18,53 +34,26 @@ public class Producto {
 	private Double precio;
 	private Integer stock;
 	
+	@OneToOne
+	private Proveedor proveedor;
 	
-	public Producto(Integer id_producto, String nombreProducto, String descripcion, Double precio, Integer stock) {
-		super();
-		this.id_producto = id_producto;
-		this.nombreProducto = nombreProducto;
-		this.descripcion = descripcion;
-		this.precio = precio;
-		this.stock = stock;
-	}
-	
-	public Producto() {
-		super();
-	}
-	
-
-
-	public Integer getId_producto() {
-		return id_producto;
-	}
-	public void setId_producto(Integer id_producto) {
-		this.id_producto = id_producto;
-	}
-	public String getNombreProducto() {
-		return nombreProducto;
-	}
-	public void setNombreProducto(String nombreProducto) {
-		this.nombreProducto = nombreProducto;
-	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	public Double getPrecio() {
-		return precio;
-	}
-	public void setPrecio(Double precio) {
-		this.precio = precio;
-	}
-	public Integer getStock() {
-		return stock;
-	}
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
-	
+	@ManyToMany( cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinTable(
+			name="producto_cliente",
+			joinColumns = @JoinColumn(
+					name = "id_producto",
+					nullable = false,
+					unique = true,
+					foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(id_producto) references producto(id_producto)")
+					),
+			inverseJoinColumns = @JoinColumn(
+					name = "id_cliente",
+					nullable = false,
+					unique = true,
+					foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(id_cliente) references clientes(id_cliente)")
+					)
+			)
+	private List<Cliente> cliente = new ArrayList<>();
 	
 
 }
