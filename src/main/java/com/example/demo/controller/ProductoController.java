@@ -25,14 +25,14 @@ public class ProductoController {
 	private ProductoService service;
 	
 	
-	@RequestMapping(path= "", method = RequestMethod.GET)
-	public ResponseEntity<?> listar(){
+	@RequestMapping(path= "/listar", method = RequestMethod.GET)
+	public ResponseEntity<List<Producto>> listar(){
 		List<Producto> listaproductos = service.listar();
-		return new ResponseEntity<>(listaproductos,HttpStatus.OK);
+		return new ResponseEntity<List<Producto>>(listaproductos,HttpStatus.OK);
 		
 	}
 
-	@RequestMapping(path= "/{id}", method = RequestMethod.GET)
+	@RequestMapping(path= "/listar/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?>buscarporid(@PathVariable Integer id){
 		Producto producto = service.obtener(id);
 		if (producto!= null) {
@@ -44,7 +44,7 @@ public class ProductoController {
 		
 	}
 	
-	@PostMapping("")
+	@PostMapping("/guardar")
 	public ResponseEntity<?> registrar(@RequestBody Producto producto){
 		service.guardar(producto);
 		return new ResponseEntity<>(producto,HttpStatus.OK);

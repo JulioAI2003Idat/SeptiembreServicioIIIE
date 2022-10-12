@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="proveeedor")
+@Table(name="proveeedores")
 public class Proveedor {
 
 	@Id 

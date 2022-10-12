@@ -32,7 +32,7 @@ public class Cliente {
 	@ManyToMany(mappedBy = "clientes", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Producto> productos = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "")
+	@OneToMany(mappedBy = "cliente", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Item> items = new ArrayList<>();
 	
 }
