@@ -28,7 +28,7 @@ public class Item {
 	private Integer cantidad;
 	private Double total;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(
 			name="id_cliente",
 			nullable = false,
@@ -36,7 +36,6 @@ public class Item {
 			foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(id_cliente) references clientes(id_cliente)")
 			
 			)
-	@ManyToOne
 	private Cliente cliente;
 
 }
